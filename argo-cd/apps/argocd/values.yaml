@@ -1,0 +1,10 @@
+# Values for the Argo CD Helm chart.
+# This file is used to configure the Argo CD installation managed by the root application.
+# The version of the chart is pinned here to ensure a stable, declarative setup.
+
+# Further customizations to the Argo CD installation can be added below.
+# For a full list of available options, refer to the official Argo CD Helm chart documentation:
+# https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
+server:
+  service:
+    type: ClusterIP

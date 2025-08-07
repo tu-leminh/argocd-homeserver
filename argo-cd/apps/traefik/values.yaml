@@ -1,0 +1,40 @@
+additionalArguments:
+  - "--certificatesresolvers.letsencrypt.acme.storage=/data/duckdns.json"
+  - "--certificatesresolvers.letsencrypt.acme.email=mt.the.dev@gmail.com"
+  - "--certificatesresolvers.letsencrypt.acme.dnsChallenge.provider=duckdns"
+  - "--certificatesresolvers.letsencrypt.acme.dnsChallenge.resolvers=1.1.1.1:53,8.8.8.8:53"
+  - "--certificatesresolvers.letsencrypt.acme.dnsChallenge.propagation.disableChecks=true"
+  - "--certificatesresolvers.freemyip.acme.storage=/data/freemyip.json"
+  - "--certificatesresolvers.freemyip.acme.email=mt.the.dev@gmail.com"
+  - "--certificatesresolvers.freemyip.acme.dnsChallenge.provider=freemyip"
+  - "--certificatesresolvers.freemyip.acme.dnsChallenge.resolvers=1.1.1.1:53,8.8.8.8:53"
+  - "--certificatesresolvers.freemyip.acme.dnsChallenge.propagation.disableChecks=true"
+  - "--entrypoints.web.http.redirections.entrypoint.to=:443"
+  - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+
+env:
+  - name: DUCKDNS_TOKEN
+    value: "242d1fa8-326e-42ff-92a8-5ffb2d7d2c34"
+  - name: FREEMYIP_TOKEN
+    value: "43d8151a10272562d21575c0"
+
+ports:
+  websecure:
+    tls:
+      enabled: true
+      certResolver: "letsencrypt"
+      domains:
+        - main: epricesx.duckdns.org
+          sans:
+            - "*.epricesx.duckdns.org"
+
+service:
+  enabled: true
+  type: LoadBalancer
+  loadBalancerIP: 192.168.1.11
+
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 1Gi
+  path: /data
